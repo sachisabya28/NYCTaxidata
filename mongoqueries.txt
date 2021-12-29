@@ -1,0 +1,45 @@
+1. 
+
+db.nyctaxidata.find( { total_amount: { $lt: 5 } } ).count()
+result : 46590
+time consumed : "executionTimeMillis" : 11 i.e 0.1secs
+
+2. 
+
+db.nyctaxidata.aggregate({ 
+    "$group": {
+      "_id": null, 
+      "tip_amount": { "$sum": "$tip_amount" }, 
+      "total_amount": { "$sum": "$total_amount" }
+       
+    } },
+  { "$project":  {
+   "tip_amount": { "$sum": "$tip_amount" }, 
+    "total_amount": { "$sum": "$total_amount" },
+  "perc_tip": { "$multiply": [ { "$divide": ["$tip_amount","$total_amount"] }, 100 ] },
+  }})
+
+result :  { "_id" : null, "tip_amount" : 14022751.94, "total_amount" : 119537617.08, "perc_tip" : 11.73 }
+time consued : "executionTimeMillis" : 11008 i.e 11.008 sec
+
+3. 
+
+db.nyctaxidata.aggregate([
+{ 
+  "$group": {
+    _id : { $dateToString: { date: { $toDate: "$tpep_pickup_datetime" }, format: "%H" }  } ,
+    total_amount: { $sum: "$total_amount" }  
+} },
+{  
+ $sort : { total_amount: -1 }
+},
+{ "$project":  {
+ "Hour_of_Day": "$_id", 
+"amount": "$total_amount",
+}},
+],
+ {allowDiskUse : true}
+)
+
+{ "_id" : "18", "Hour_of_Day" : "18", "amount" : 8139717.28 }
+time consumed :  "executionTimeMillis" : 24805 i.e 24.805 sec
