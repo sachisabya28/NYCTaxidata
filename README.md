@@ -33,10 +33,11 @@ which can be passed by the consumer of the API.
 
 ## Solution 
 *** 
-Pull the latest version from GIT
-Install Mongodb https://docs.mongodb.com/manual/installation/ 
-Make sure Mongo is running on PORT 27017
+- Pull the latest version from GIT
+- Install Mongodb https://docs.mongodb.com/manual/installation/ 
+- Make sure Mongo is running on PORT 27017
 ***
+
 ###### Install the devDependencies and start the server. ######
 
 ```bash
@@ -85,8 +86,8 @@ Data not present
 ## Technologies
 ***
 A list of technologies used within the project:
-Mongo - Database
-Flask -  Web framework
-flask_pymongo -  Flask extensions for integrating MongoDB
-Dask - to enable parallel computing and loading data to mongo
+- Mongo - Database
+- Flask -  Web framework
+- flask_pymongo -  Flask extensions for integrating MongoDB
+- Dask - to enable parallel computing and loading data to mongo
 
